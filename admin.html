@@ -1,0 +1,460 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <meta name="theme-color" content="#0c0c0b">
+  <title>Edit guide · Krowne × Day Tripper</title>
+  <style>
+    :root {
+      --ink: #0c0c0b;
+      --paper: #f2efe7;
+      --panel: #fffdf7;
+      --acid: #e7ff45;
+      --blue: #3d58ff;
+      --orange: #ff7043;
+      --muted: #6d6b64;
+      --line: rgba(12, 12, 11, 0.16);
+      --radius: 22px;
+    }
+    * { box-sizing: border-box; }
+    html { background: var(--paper); color: var(--ink); font-family: Arial, Helvetica, sans-serif; }
+    body { margin: 0; min-height: 100vh; }
+    button, input, textarea { font: inherit; }
+    a { color: inherit; }
+    [hidden] { display: none !important; }
+    .shell { width: min(1100px, calc(100% - 32px)); margin-inline: auto; }
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(12, 12, 11, 0.96);
+      color: #fff;
+      border-bottom: 1px solid rgba(255,255,255,0.14);
+      backdrop-filter: blur(12px);
+    }
+    .topbar-inner { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: -0.02em; }
+    .brand img { width: 34px; height: 34px; border-radius: 8px; }
+    .top-actions { display: flex; align-items: center; gap: 8px; }
+    .top-actions a, .top-actions button {
+      border: 1px solid rgba(255,255,255,0.28);
+      background: transparent;
+      color: #fff;
+      border-radius: 999px;
+      padding: 10px 14px;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .hero { padding: clamp(54px, 9vw, 96px) 0 42px; }
+    .eyebrow { color: var(--blue); font-size: 12px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+    h1 { margin: 12px 0 16px; max-width: 780px; font-size: clamp(44px, 8vw, 88px); line-height: 0.9; letter-spacing: -0.075em; }
+    .hero p { max-width: 680px; margin: 0; color: var(--muted); font-size: clamp(17px, 2vw, 21px); line-height: 1.5; }
+    .notice { margin-top: 24px; padding: 14px 16px; border-left: 5px solid var(--acid); background: var(--ink); color: #fff; border-radius: 4px 14px 14px 4px; line-height: 1.45; }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 16px 50px rgba(12,12,11,0.08); }
+    .login-card { width: min(520px, 100%); padding: clamp(24px, 5vw, 42px); margin-bottom: 72px; }
+    .login-card h2 { margin: 0 0 8px; font-size: 32px; letter-spacing: -0.04em; }
+    .login-card p { color: var(--muted); line-height: 1.5; margin: 0 0 26px; }
+    .field-label { display: grid; gap: 8px; margin-bottom: 18px; font-size: 13px; font-weight: 800; }
+    input[type="email"], input[type="password"], input[type="search"], textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+      color: var(--ink);
+      padding: 13px 14px;
+      outline: none;
+    }
+    input:focus, textarea:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(61,88,255,0.14); }
+    .button {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      background: var(--ink);
+      color: #fff;
+      padding: 13px 18px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+    .button.acid { background: var(--acid); color: var(--ink); }
+    .button:disabled { opacity: 0.5; cursor: wait; }
+    .message { min-height: 22px; margin-top: 14px; color: var(--muted); font-size: 14px; }
+    .message.error { color: #b41d14; }
+    .editor-toolbar {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .editor-toolbar input { min-height: 48px; }
+    .save-state { font-size: 13px; font-weight: 800; color: var(--muted); text-align: right; }
+    .group-list { display: grid; gap: 14px; padding-bottom: 130px; }
+    details.card { overflow: clip; }
+    summary { list-style: none; cursor: pointer; padding: 22px 24px; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+    summary::-webkit-details-marker { display: none; }
+    summary h2 { margin: 0; font-size: clamp(22px, 3vw, 32px); letter-spacing: -0.04em; }
+    .count { display: inline-flex; align-items: center; justify-content: center; min-width: 38px; height: 30px; padding: 0 10px; border-radius: 999px; background: var(--acid); font-size: 12px; font-weight: 900; }
+    .fields { display: grid; gap: 0; border-top: 1px solid var(--line); }
+    .edit-field { padding: 22px 24px; border-bottom: 1px solid var(--line); }
+    .edit-field:last-child { border-bottom: 0; }
+    .field-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 9px; }
+    .field-name { font-size: 13px; font-weight: 900; }
+    .field-key { display: block; color: var(--muted); font-size: 11px; font-weight: 400; margin-top: 4px; }
+    .reset-button { border: 0; background: transparent; color: var(--blue); font-size: 12px; font-weight: 800; cursor: pointer; padding: 2px; }
+    textarea { min-height: 84px; resize: vertical; line-height: 1.45; }
+    .field-help { margin-top: 7px; color: var(--muted); font-size: 11px; }
+    .edit-field.is-dirty { box-shadow: inset 5px 0 0 var(--orange); }
+    .savebar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 30;
+      padding: 12px max(16px, env(safe-area-inset-right)) calc(12px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+      background: rgba(12,12,11,0.96);
+      color: #fff;
+      backdrop-filter: blur(14px);
+    }
+    .savebar-inner { width: min(1100px, 100%); margin-inline: auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .savebar-copy { font-size: 13px; color: rgba(255,255,255,0.7); }
+    .empty { padding: 30px; text-align: center; color: var(--muted); }
+    @media (max-width: 640px) {
+      .shell { width: min(100% - 22px, 1100px); }
+      .topbar-inner { min-height: 62px; }
+      .brand span { display: none; }
+      .top-actions a, .top-actions button { padding: 9px 11px; font-size: 12px; }
+      .hero { padding-top: 42px; }
+      .editor-toolbar { grid-template-columns: 1fr; }
+      .save-state { text-align: left; }
+      summary, .edit-field { padding-inline: 17px; }
+      .savebar-copy { display: none; }
+      .savebar-inner .button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <div class="brand"><img src="assets/va-profile-lime.png" alt=""><span>Vessel Archive · Guide editor</span></div>
+      <div class="top-actions">
+        <a href="index.html">View guide</a>
+        <button type="button" data-sign-out hidden>Sign out</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="shell">
+        <div class="eyebrow">Private editing page</div>
+        <h1>Change the guide.</h1>
+        <p>Edit the date, prep notes, documentary copy, and every shot-list item from your phone or computer.</p>
+        <div class="notice">Changes save to the live guide. Leave a shot-list item blank to hide it. The public checklist’s checked items will not be reset when you change the wording.</div>
+      </div>
+    </section>
+
+    <section class="shell" data-login-view>
+      <form class="card login-card" data-login-form>
+        <h2>Sign in</h2>
+        <p>Use the private editor account created in Supabase. There is no public sign-up on this page.</p>
+        <label class="field-label">Email<input type="email" name="email" autocomplete="username" required></label>
+        <label class="field-label">Password<input type="password" name="password" autocomplete="current-password" required></label>
+        <button class="button" type="submit">Open editor</button>
+        <div class="message" data-login-message aria-live="polite"></div>
+      </form>
+    </section>
+
+    <section class="shell" data-editor-view hidden>
+      <div class="editor-toolbar">
+        <input type="search" data-search placeholder="Search the guide…" aria-label="Search editable content">
+        <div class="save-state" data-save-state>Everything is saved</div>
+      </div>
+      <div class="group-list" data-group-list><div class="card empty">Loading the guide…</div></div>
+    </section>
+  </main>
+
+  <div class="savebar" data-savebar hidden>
+    <div class="savebar-inner">
+      <div class="savebar-copy">Saved changes appear on the live guide.</div>
+      <button class="button acid" type="button" data-save>Save changes</button>
+    </div>
+  </div>
+
+  <script src="assets/supabase.js"></script>
+  <script>
+    (() => {
+      const SUPABASE_URL = 'https://slsujfyqvmpkiwnuxhjf.supabase.co';
+      const SUPABASE_KEY = 'sb_publishable_ynjOy6nudUYHgnHAS-MFDQ_xoK0zeri';
+      const PROJECT_ID = 'daytripper-krowne-2026';
+      const client = window.supabase?.createClient(SUPABASE_URL, SUPABASE_KEY);
+      const loginView = document.querySelector('[data-login-view]');
+      const editorView = document.querySelector('[data-editor-view]');
+      const loginForm = document.querySelector('[data-login-form]');
+      const loginMessage = document.querySelector('[data-login-message]');
+      const signOutButton = document.querySelector('[data-sign-out]');
+      const groupList = document.querySelector('[data-group-list]');
+      const savebar = document.querySelector('[data-savebar]');
+      const saveButton = document.querySelector('[data-save]');
+      const saveState = document.querySelector('[data-save-state]');
+      const search = document.querySelector('[data-search]');
+      let fields = [];
+      let remoteOverrides = new Map();
+      let editorLoaded = false;
+
+      const keyLabels = {
+        'hero.copy': 'Opening description',
+        'shoot.date': 'Shoot date and start time',
+        'shoot.length': 'Shoot length',
+        'deliverables.intro': 'Deliverables introduction',
+        'deliverable.documentary': 'Mini documentary description',
+        'deliverable.chapters': 'Chapter cuts description',
+        'deliverable.equipment': 'Equipment videos description',
+        'deliverable.formats': 'Delivery formats',
+        'documentary.intro': 'Documentary introduction',
+        'documentary.working_rule': 'New Jersey footage rule',
+        'documentary.shot_intro': 'Documentary shot-list note',
+        'equipment.intro': 'Equipment section introduction',
+        'prep.intro': 'Prep section introduction'
+      };
+
+      const groupNames = {
+        overview: 'Overview and shoot date',
+        deliverables: 'Deliverables',
+        documentary: 'Documentary story',
+        equipment: 'Equipment overview',
+        prep: 'Prep and shoot plan'
+      };
+
+      function stableShotId(copy, index) {
+        const slug = copy
+          .toLowerCase()
+          .normalize('NFKD')
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-|-$/g, '')
+          .slice(0, 72);
+        return 'shot-' + (slug || String(index + 1).padStart(3, '0'));
+      }
+
+      function titleFromKey(key) {
+        if (keyLabels[key]) return keyLabels[key];
+        if (key.startsWith('chapter.')) {
+          const parts = key.split('.');
+          return 'Chapter ' + parts[1] + ' ' + (parts[2] === 'source' ? 'footage source' : 'description');
+        }
+        if (key.startsWith('prep.daytripper.')) return 'Day Tripper prep item ' + key.split('.').pop();
+        if (key.startsWith('prep.krowne.')) return 'Krowne prep item ' + key.split('.').pop();
+        if (key.startsWith('plan.')) {
+          const parts = key.split('.');
+          return 'Shoot plan ' + parts[1] + ' ' + ({ label: 'label', title: 'heading', copy: 'description' }[parts[2]] || parts[2]);
+        }
+        return key.replace(/^shot\.shot-/, '').replace(/[.-]+/g, ' ').replace(/\b\w/g, (letter) => letter.toUpperCase());
+      }
+
+      function groupForElement(element) {
+        const section = element.closest('section[id]');
+        return section?.id || 'overview';
+      }
+
+      function collectFields(source) {
+        const collected = new Map();
+
+        source.querySelectorAll('[data-content-key]').forEach((element) => {
+          const key = element.dataset.contentKey;
+          collected.set(key, {
+            key,
+            name: titleFromKey(key),
+            group: groupForElement(element),
+            defaultValue: element.textContent.trim()
+          });
+        });
+
+        [...source.querySelectorAll('.check-row input[type="checkbox"]')].forEach((box, index) => {
+          const label = box.closest('.check-row')?.querySelector('span');
+          if (!label) return;
+          const defaultValue = label.textContent.trim();
+          const key = 'shot.' + stableShotId(defaultValue, index);
+          const category = box.closest('details')?.querySelector('summary h3')?.textContent.trim() || 'Shot list';
+          collected.set(key, {
+            key,
+            name: defaultValue,
+            group: 'Shots · ' + category,
+            defaultValue
+          });
+        });
+
+        return [...collected.values()];
+      }
+
+      function escapeHtml(value) {
+        return String(value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      }
+
+      function renderEditor() {
+        const groups = new Map();
+        fields.forEach((field) => {
+          if (!groups.has(field.group)) groups.set(field.group, []);
+          groups.get(field.group).push(field);
+        });
+
+        groupList.innerHTML = [...groups.entries()].map(([group, items], groupIndex) => {
+          const title = groupNames[group] || group;
+          const fieldHtml = items.map((field) => {
+            const value = remoteOverrides.has(field.key) ? remoteOverrides.get(field.key) : field.defaultValue;
+            return `
+              <div class="edit-field" data-field data-key="${escapeHtml(field.key)}" data-search-copy="${escapeHtml((title + ' ' + field.name + ' ' + value).toLowerCase())}">
+                <div class="field-top">
+                  <div class="field-name">${escapeHtml(field.name)}<span class="field-key">${escapeHtml(field.key)}</span></div>
+                  <button class="reset-button" type="button" data-reset-field>Use original</button>
+                </div>
+                <textarea aria-label="${escapeHtml(field.name)}" data-input>${escapeHtml(value)}</textarea>
+                <div class="field-help">Leave blank to hide this item.</div>
+              </div>`;
+          }).join('');
+          return `<details class="card" ${groupIndex < 2 ? 'open' : ''} data-group><summary><h2>${escapeHtml(title)}</h2><span class="count">${items.length}</span></summary><div class="fields">${fieldHtml}</div></details>`;
+        }).join('');
+
+        groupList.querySelectorAll('[data-field]').forEach((element) => {
+          const key = element.dataset.key;
+          const field = fields.find((item) => item.key === key);
+          const input = element.querySelector('[data-input]');
+          input.dataset.defaultValue = field.defaultValue;
+          input.addEventListener('input', () => {
+            element.classList.toggle('is-dirty', input.value !== (remoteOverrides.has(key) ? remoteOverrides.get(key) : field.defaultValue));
+            markSaveState();
+          });
+          element.querySelector('[data-reset-field]').addEventListener('click', () => {
+            input.value = field.defaultValue;
+            input.dispatchEvent(new Event('input', { bubbles: true }));
+          });
+        });
+        markSaveState();
+      }
+
+      function markSaveState(copy) {
+        const dirty = [...document.querySelectorAll('[data-field].is-dirty')].length;
+        saveState.textContent = copy || (dirty ? dirty + (dirty === 1 ? ' unsaved change' : ' unsaved changes') : 'Everything is saved');
+      }
+
+      async function loadEditor() {
+        if (editorLoaded) return;
+        editorLoaded = true;
+        groupList.innerHTML = '<div class="card empty">Loading the guide…</div>';
+        try {
+          const [pageResponse, contentResult] = await Promise.all([
+            fetch('index.html?editor=' + Date.now(), { cache: 'no-store' }),
+            client.from('guide_content').select('content_key,value').eq('project_id', PROJECT_ID)
+          ]);
+          if (!pageResponse.ok) throw new Error('Could not load index.html.');
+          if (contentResult.error) throw contentResult.error;
+          const source = new DOMParser().parseFromString(await pageResponse.text(), 'text/html');
+          fields = collectFields(source);
+          remoteOverrides = new Map(contentResult.data.map((row) => [row.content_key, row.value]));
+          renderEditor();
+        } catch (error) {
+          editorLoaded = false;
+          groupList.innerHTML = '<div class="card empty">The editor could not load. Make sure the admin SQL has been run in Supabase, then refresh this page.<br><br>' + escapeHtml(error.message) + '</div>';
+        }
+      }
+
+      async function saveChanges() {
+        saveButton.disabled = true;
+        markSaveState('Saving…');
+        const values = new Map();
+        document.querySelectorAll('[data-field]').forEach((element) => {
+          values.set(element.dataset.key, element.querySelector('[data-input]').value.trim());
+        });
+        const fieldMap = new Map(fields.map((field) => [field.key, field]));
+        const upserts = [];
+        const deletes = [];
+        values.forEach((value, key) => {
+          const defaultValue = fieldMap.get(key).defaultValue;
+          if (value === defaultValue) {
+            if (remoteOverrides.has(key)) deletes.push(key);
+          } else {
+            upserts.push({ project_id: PROJECT_ID, content_key: key, value, updated_at: new Date().toISOString() });
+          }
+        });
+
+        try {
+          if (upserts.length) {
+            const { error } = await client.from('guide_content').upsert(upserts, { onConflict: 'project_id,content_key' });
+            if (error) throw error;
+          }
+          if (deletes.length) {
+            const { error } = await client.from('guide_content').delete().eq('project_id', PROJECT_ID).in('content_key', deletes);
+            if (error) throw error;
+          }
+          remoteOverrides = new Map(upserts.map((row) => [row.content_key, row.value]));
+          document.querySelectorAll('[data-field]').forEach((element) => element.classList.remove('is-dirty'));
+          markSaveState('Saved to the live guide');
+          window.setTimeout(() => markSaveState(), 1800);
+        } catch (error) {
+          markSaveState('Could not save: ' + error.message);
+        } finally {
+          saveButton.disabled = false;
+        }
+      }
+
+      function showSession(session) {
+        const signedIn = Boolean(session);
+        loginView.hidden = signedIn;
+        editorView.hidden = !signedIn;
+        signOutButton.hidden = !signedIn;
+        savebar.hidden = !signedIn;
+        if (signedIn) loadEditor();
+      }
+
+      loginForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        loginMessage.className = 'message';
+        loginMessage.textContent = 'Signing in…';
+        const formData = new FormData(loginForm);
+        const { error } = await client.auth.signInWithPassword({
+          email: formData.get('email'),
+          password: formData.get('password')
+        });
+        if (error) {
+          loginMessage.className = 'message error';
+          loginMessage.textContent = error.message;
+        }
+      });
+
+      signOutButton.addEventListener('click', async () => {
+        await client.auth.signOut();
+        editorLoaded = false;
+        fields = [];
+        remoteOverrides = new Map();
+      });
+
+      saveButton.addEventListener('click', saveChanges);
+      search.addEventListener('input', () => {
+        const query = search.value.trim().toLowerCase();
+        document.querySelectorAll('[data-field]').forEach((field) => {
+          field.hidden = Boolean(query) && !field.dataset.searchCopy.includes(query);
+        });
+        document.querySelectorAll('[data-group]').forEach((group) => {
+          const visible = [...group.querySelectorAll('[data-field]')].some((field) => !field.hidden);
+          group.hidden = !visible;
+          if (query && visible) group.open = true;
+        });
+      });
+
+      if (!client) {
+        loginMessage.className = 'message error';
+        loginMessage.textContent = 'Supabase did not load. Check the assets folder and refresh.';
+        loginForm.querySelector('button').disabled = true;
+        return;
+      }
+
+      client.auth.onAuthStateChange((_event, session) => showSession(session));
+      client.auth.getSession().then(({ data }) => showSession(data.session));
+    })();
+  </script>
+</body>
+</html>
