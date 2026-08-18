@@ -251,6 +251,19 @@
     .story-card p { margin-bottom: 0; font-size: 14px; line-height: 1.35; }
     .source-tag { width: fit-content; padding: 6px 8px; border: 1.5px solid currentColor; border-radius: 999px; }
     .story-arrow { font: 32px/1 Georgia, serif; }
+    .production-note {
+      margin-top: 20px;
+      padding: clamp(22px, 3vw, 34px);
+      display: grid;
+      grid-template-columns: minmax(150px, 0.45fr) minmax(0, 2fr);
+      gap: 20px;
+      border: 2px solid var(--ink);
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: var(--paper);
+    }
+    .production-note strong { color: var(--acid); font: 600 11px/1.4 "Martian Mono", "Courier New", monospace; letter-spacing: 0.08em; text-transform: uppercase; }
+    .production-note p { max-width: 760px; margin: 0; font-size: clamp(17px, 2vw, 22px); line-height: 1.3; }
 
     .checklist-layout { display: grid; grid-template-columns: minmax(220px, 0.7fr) minmax(0, 2fr); gap: 24px; align-items: start; }
     .side-note {
@@ -373,6 +386,7 @@
       .story-grid { grid-template-columns: 1fr; }
       .story-card, .story-card:last-child { grid-column: auto; min-height: 230px; }
       .needs-grid { grid-template-columns: 1fr; }
+      .production-note { grid-template-columns: 1fr; }
       summary { min-height: 74px; padding: 16px; }
       summary h3 { font-size: 20px; }
       .checklist { padding-inline: 16px; }
@@ -477,38 +491,43 @@
           <div class="section-number">02 / Documentary</div>
           <div>
             <h2>Five <span class="serif">clear</span><br>chapters.</h2>
-            <p class="section-intro">The first four chapters mostly use footage Krowne already has. Our main job at Day Tripper is the finished bar and live service.</p>
+            <p class="section-intro">Trevor carries the documentary from the original vision to the finished bar. Existing Krowne footage can support the middle, and our Day Tripper shoot gives the story its ending.</p>
           </div>
         </div>
 
         <div class="story-grid">
           <article class="story-card">
-            <div><span class="source-tag">Krowne footage</span><h3>01. Dream</h3><p>The empty room and the original idea for the space.</p></div>
+            <div><span class="source-tag">Trevor + existing footage</span><h3>01. Dream</h3><p>Trevor in the empty room explaining the original idea for the space.</p></div>
             <span class="story-arrow">→</span>
           </article>
           <article class="story-card">
-            <div><span class="source-tag">Krowne footage</span><h3>02. Design</h3><p>BarFlex planning, layout, and the thinking behind the station.</p></div>
+            <div><span class="source-tag">Trevor + limited NJ support</span><h3>02. Design</h3><p>Trevor explains the thinking behind the station, supported by the strongest BarFlex footage available.</p></div>
             <span class="story-arrow">→</span>
           </article>
           <article class="story-card">
-            <div><span class="source-tag">Krowne footage</span><h3>03. Build</h3><p>Factory footage, fabrication, welding, and stainless details.</p></div>
+            <div><span class="source-tag">Limited NJ support + pickups</span><h3>03. Build</h3><p>The strongest factory clips paired with new stainless, welding, and equipment details from Day Tripper.</p></div>
             <span class="story-arrow">→</span>
           </article>
           <article class="story-card">
-            <div><span class="source-tag">Krowne footage</span><h3>04. Install</h3><p>The equipment coming into the room and the bar taking shape.</p></div>
+            <div><span class="source-tag">Use if available</span><h3>04. Install</h3><p>Any real installation footage we can get. If it does not exist, this becomes a short transition into the finished bar.</p></div>
             <span class="story-arrow">→</span>
           </article>
           <article class="story-card">
-            <div><span class="source-tag">Shoot at Day Tripper</span><h3>05. Serve</h3><p>The finished station working during a real night of service.</p></div>
+            <div><span class="source-tag">Trevor + Day Tripper shoot</span><h3>05. Serve</h3><p>Trevor’s finished-bar perspective paired with a real night of service.</p></div>
             <span class="story-arrow">●</span>
           </article>
+        </div>
+
+        <div class="production-note">
+          <strong>Working rule</strong>
+          <p>New Jersey footage is support, not the backbone. We will use the best clips they send, but Trevor’s interview and our Day Tripper footage must make the documentary work on their own. If installation footage does not exist, that chapter becomes a short transition using Trevor’s audio and finished equipment details.</p>
         </div>
 
         <div class="checklist-layout" style="margin-top: clamp(40px, 6vw, 72px);">
           <aside class="side-note">
             <span class="label">Documentary shot list</span>
             <h3>What we need from Day Tripper</h3>
-            <p>These shots tell the “Serve” chapter and give us the ending of the documentary.</p>
+            <p>Trevor gives us the story. The room, bartender, and live-service footage show the result.</p>
             <div class="progress-track" aria-hidden="true"><div class="progress-fill" data-progress-fill></div></div>
             <div class="progress-text" data-progress-text>0 shots checked</div>
             <div class="progress-actions">
@@ -519,6 +538,34 @@
           </aside>
 
           <div class="accordion-stack">
+            <details open style="--accent: var(--blue);">
+              <summary><span class="summary-left"><span class="category-dot"></span><h3>Trevor documentary footage</h3></span><span class="open-icon">+</span></summary>
+              <div class="checklist">
+                <label class="check-row"><input type="checkbox"><span>Existing footage of Trevor standing and looking around the empty room</span></label>
+                <label class="check-row"><input type="checkbox"><span>Existing footage of Trevor visualizing the layout and pointing out the future bar</span></label>
+                <label class="check-row"><input type="checkbox"><span>Existing footage of Trevor using BarFlex inside Krowne’s office</span></label>
+                <label class="check-row"><input type="checkbox"><span>Interview: Trevor explains the original vision for Day Tripper</span></label>
+                <label class="check-row"><input type="checkbox"><span>Interview: what the bar needed to handle during real service</span></label>
+                <label class="check-row"><input type="checkbox"><span>Interview: how Krowne and BarFlex helped plan the layout</span></label>
+                <label class="check-row"><input type="checkbox"><span>Interview: what was custom about the station and equipment</span></label>
+                <label class="check-row"><input type="checkbox"><span>Interview: what it feels like seeing the finished bar working</span></label>
+                <label class="check-row"><input type="checkbox"><span>One clean closing thought about the bartender and guest experience</span></label>
+                <label class="check-row"><input type="checkbox"><span>Clean interview audio, room tone, and a few natural pauses</span></label>
+              </div>
+            </details>
+
+            <details style="--accent: var(--orange);">
+              <summary><span class="summary-left"><span class="category-dot"></span><h3>New Jersey support footage</h3></span><span class="open-icon">+</span></summary>
+              <div class="checklist">
+                <label class="check-row"><input type="checkbox"><span>Collect every usable BarFlex and Krowne office clip</span></label>
+                <label class="check-row"><input type="checkbox"><span>Collect every usable factory, fabrication, welding, and warehouse clip</span></label>
+                <label class="check-row"><input type="checkbox"><span>Review the original files and select only the strongest moments</span></label>
+                <label class="check-row"><input type="checkbox"><span>Request clean BarFlex screen recordings or screenshots if the office footage is thin</span></label>
+                <label class="check-row"><input type="checkbox"><span>Request fabrication stills or product images for any missing visual step</span></label>
+                <label class="check-row"><input type="checkbox"><span>Capture replacement welds, seams, stainless, and mechanical details at Day Tripper</span></label>
+              </div>
+            </details>
+
             <details open style="--accent: var(--acid);">
               <summary><span class="summary-left"><span class="category-dot"></span><h3>The space</h3></span><span class="open-icon">+</span></summary>
               <div class="checklist">
@@ -661,6 +708,7 @@
             <ul class="plain-list">
               <li>Access beginning Wednesday, August 26 at 10:00 AM</li>
               <li>A second shoot day available if we need it after day one</li>
+              <li>Trevor available for one short documentary interview before opening</li>
               <li>One bartender who knows the station well</li>
               <li>The station clean, stocked, and fully working</li>
               <li>Large-format ice, glassware, garnishes, juices, syrups, and backup product</li>
@@ -675,9 +723,10 @@
             <h3>The footage and facts</h3>
             <ul class="plain-list">
               <li>Empty-room footage</li>
-              <li>BarFlex planning footage or screen recordings</li>
-              <li>Factory and fabrication footage</li>
-              <li>Installation footage</li>
+              <li>All usable New Jersey BarFlex and office footage</li>
+              <li>All usable New Jersey factory and fabrication footage</li>
+              <li>BarFlex screen recordings, screenshots, and fabrication stills as backup</li>
+              <li>Any installation footage that actually exists</li>
               <li>Exact product names and model numbers</li>
               <li>Approved product details or talking points</li>
               <li>Logos and current brand files</li>
@@ -724,12 +773,19 @@
       const text = document.querySelector('[data-progress-text]');
       const syncStatus = document.querySelector('[data-sync-status]');
       const syncCopy = document.querySelector('[data-sync-copy]');
-      const storageKey = 'daytripper-production-guide-v1';
+      const storageKey = 'daytripper-production-guide-v2';
       let client = null;
       let syncStarted = false;
 
       boxes.forEach((box, index) => {
-        box.dataset.shotId = 'shot-' + String(index + 1).padStart(3, '0');
+        const copy = box.closest('.check-row')?.querySelector('span')?.textContent || String(index + 1);
+        const slug = copy
+          .toLowerCase()
+          .normalize('NFKD')
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-|-$/g, '')
+          .slice(0, 72);
+        box.dataset.shotId = 'shot-' + (slug || String(index + 1).padStart(3, '0'));
       });
 
       function setSyncStatus(state, copy) {
@@ -742,12 +798,17 @@
         const percent = boxes.length ? Math.round((checked / boxes.length) * 100) : 0;
         if (fill) fill.style.width = percent + '%';
         if (text) text.textContent = checked + ' of ' + boxes.length + ' shots checked';
-        try { localStorage.setItem(storageKey, JSON.stringify(boxes.map((box) => box.checked))); } catch (_) {}
+        try {
+          localStorage.setItem(
+            storageKey,
+            JSON.stringify(Object.fromEntries(boxes.map((box) => [box.dataset.shotId, box.checked])))
+          );
+        } catch (_) {}
       }
 
       try {
-        const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
-        boxes.forEach((box, index) => { box.checked = Boolean(saved[index]); });
+        const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+        boxes.forEach((box) => { box.checked = Boolean(saved[box.dataset.shotId]); });
       } catch (_) {}
 
       boxes.forEach((box) => box.addEventListener('change', updateProgress));
@@ -805,20 +866,28 @@
           return;
         }
 
-        if (data.length === 0) {
+        const remote = new Map(data.map((row) => [row.shot_id, row.checked]));
+        const missing = [];
+
+        boxes.forEach((box) => {
+          if (remote.has(box.dataset.shotId)) {
+            box.checked = Boolean(remote.get(box.dataset.shotId));
+          } else {
+            missing.push(box);
+          }
+        });
+        updateProgress();
+
+        if (missing.length > 0) {
           const { error: seedError } = await client
             .from('shot_checks')
-            .upsert(boxes.map(rowFor), { onConflict: 'project_id,shot_id' });
+            .upsert(missing.map(rowFor), { onConflict: 'project_id,shot_id' });
 
           if (seedError) {
-            console.warn('Checklist could not start live sync.', seedError.message);
+            console.warn('Checklist could not add its new shots.', seedError.message);
             setSyncStatus('error', 'Local backup');
             return;
           }
-        } else {
-          const remote = new Map(data.map((row) => [row.shot_id, row.checked]));
-          boxes.forEach((box) => { box.checked = Boolean(remote.get(box.dataset.shotId)); });
-          updateProgress();
         }
 
         client
