@@ -249,7 +249,17 @@
     .story-card:nth-child(5) { background: var(--blue); color: #fff; }
     .story-card h3 { margin: 28px 0 8px; font-size: 25px; line-height: 1; }
     .story-card p { margin-bottom: 0; font-size: 14px; line-height: 1.35; }
-    .source-tag { width: fit-content; padding: 6px 8px; border: 1.5px solid currentColor; border-radius: 999px; }
+    .source-tag {
+      width: 100%;
+      min-height: 48px;
+      padding: 8px 10px;
+      display: flex;
+      align-items: center;
+      border: 1.5px solid currentColor;
+      border-radius: 14px;
+      line-height: 1.3;
+      overflow-wrap: anywhere;
+    }
     .story-arrow { font: 32px/1 Georgia, serif; }
     .production-note {
       margin-top: 20px;
