@@ -1,0 +1,874 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f2eee5">
+  <meta name="description" content="Shared production guide and shot list for the Krowne x Day Tripper film project.">
+  <title>Krowne × Day Tripper — Production Guide</title>
+  <link rel="icon" type="image/png" href="assets/va-profile-lime.png">
+  <link rel="apple-touch-icon" href="assets/va-profile-lime.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Instrument+Serif:ital@0;1&family=Martian+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #f2eee5;
+      --ink: #0b0b0b;
+      --acid: #dfff00;
+      --orange: #ff5a2f;
+      --blue: #3055ff;
+      --line: rgba(11, 11, 11, 0.2);
+      --soft: rgba(11, 11, 11, 0.055);
+      --max: 1180px;
+      --pad: clamp(18px, 4vw, 48px);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+    body {
+      margin: 0;
+      min-width: 280px;
+      color: var(--ink);
+      background:
+        linear-gradient(var(--line) 1px, transparent 1px),
+        linear-gradient(90deg, var(--line) 1px, transparent 1px),
+        var(--paper);
+      background-size: 48px 48px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    button, input { font: inherit; }
+    a { color: inherit; }
+    ::selection { color: var(--ink); background: var(--acid); }
+
+    .site-header {
+      position: sticky;
+      z-index: 20;
+      top: 0;
+      border-bottom: 2px solid var(--ink);
+      background: rgba(242, 238, 229, 0.94);
+      backdrop-filter: blur(14px);
+    }
+
+    .header-inner {
+      width: min(100%, var(--max));
+      min-height: 68px;
+      margin: 0 auto;
+      padding: 10px var(--pad);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 38px;
+      aspect-ratio: 1;
+      border: 2px solid var(--ink);
+      border-radius: 5px;
+      display: block;
+      object-fit: cover;
+    }
+
+    .brand-name {
+      font-family: "Archivo Black", Impact, sans-serif;
+      font-size: clamp(13px, 1.6vw, 18px);
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      gap: 7px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    nav::-webkit-scrollbar { display: none; }
+    nav a,
+    .utility-button,
+    .sync-pill {
+      min-height: 42px;
+      padding: 10px 13px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid var(--ink);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ink);
+      font: 600 10px/1 "Martian Mono", "Courier New", monospace;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .sync-pill {
+      gap: 7px;
+      border-color: var(--ink);
+      background: var(--ink);
+      color: var(--paper);
+      cursor: default;
+      white-space: nowrap;
+    }
+
+    .sync-dot {
+      width: 8px;
+      height: 8px;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--orange);
+    }
+
+    .sync-pill[data-state="live"] { background: var(--acid); color: var(--ink); }
+    .sync-pill[data-state="live"] .sync-dot { background: var(--ink); }
+    .sync-pill[data-state="syncing"] { background: var(--blue); color: #fff; }
+    .sync-pill[data-state="syncing"] .sync-dot { background: #fff; }
+    .sync-pill[data-state="error"] { background: var(--orange); color: var(--ink); }
+    .sync-pill[data-state="error"] .sync-dot { background: var(--ink); }
+
+    nav a:hover,
+    nav a:focus-visible,
+    .utility-button:hover,
+    .utility-button:focus-visible { background: var(--acid); outline: none; }
+
+    main { overflow: hidden; }
+    .wrap { width: min(100%, var(--max)); margin: 0 auto; padding-inline: var(--pad); }
+
+    .hero {
+      min-height: min(720px, calc(100svh - 68px));
+      display: grid;
+      align-items: end;
+      padding-block: clamp(56px, 9vw, 110px) 34px;
+      border-bottom: 2px solid var(--ink);
+      background:
+        radial-gradient(circle at 90% 12%, var(--acid) 0 8%, transparent 8.3%),
+        radial-gradient(circle at 8% 80%, var(--orange) 0 6%, transparent 6.3%);
+    }
+
+    .eyebrow,
+    .section-number,
+    .label,
+    .badge,
+    .source-tag,
+    .progress-text,
+    .footer-line {
+      font-family: "Martian Mono", "Courier New", monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow { display: flex; align-items: center; gap: 10px; margin-bottom: 22px; }
+    .eyebrow::before { content: ""; width: 34px; height: 10px; background: var(--blue); }
+
+    h1, h2, h3, p { margin-top: 0; }
+    h1, h2, .big-number {
+      font-family: "Archivo Black", Impact, sans-serif;
+      font-weight: 900;
+      letter-spacing: -0.065em;
+      line-height: 0.9;
+      text-transform: uppercase;
+    }
+
+    h1 { max-width: 1050px; margin-bottom: 28px; font-size: clamp(58px, 12vw, 155px); }
+    h1 em { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; text-transform: none; }
+    .hero-copy { max-width: 720px; margin-bottom: 0; font-size: clamp(18px, 2.2vw, 28px); line-height: 1.22; }
+    .hero-note { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 8px; }
+    .badge { padding: 8px 10px; border: 1.5px solid var(--ink); border-radius: 999px; background: var(--paper); }
+    .badge.acid { background: var(--acid); }
+
+    .section { padding-block: clamp(64px, 9vw, 120px); border-bottom: 2px solid var(--ink); }
+    .section-head {
+      margin-bottom: clamp(30px, 5vw, 58px);
+      display: grid;
+      grid-template-columns: minmax(80px, 0.35fr) minmax(0, 2.65fr);
+      gap: clamp(20px, 4vw, 52px);
+      align-items: end;
+    }
+
+    .section-number { align-self: start; padding-top: 8px; }
+    h2 { max-width: 920px; margin-bottom: 0; font-size: clamp(42px, 8vw, 96px); }
+    h2 .serif { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; text-transform: none; }
+    .section-intro { max-width: 720px; margin: 20px 0 0; font-size: clamp(17px, 2vw, 23px); line-height: 1.3; }
+
+    .deliverable-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      border-top: 2px solid var(--ink);
+      border-left: 2px solid var(--ink);
+    }
+
+    .deliverable {
+      min-height: 245px;
+      padding: clamp(20px, 3vw, 32px);
+      border-right: 2px solid var(--ink);
+      border-bottom: 2px solid var(--ink);
+      background: var(--paper);
+    }
+
+    .deliverable:nth-child(1) { grid-column: span 5; }
+    .deliverable:nth-child(2) { grid-column: span 4; background: var(--acid); }
+    .deliverable:nth-child(3) { grid-column: span 3; }
+    .deliverable:nth-child(4) { grid-column: span 12; min-height: auto; background: var(--ink); color: var(--paper); }
+    .big-number { margin-bottom: 16px; font-size: clamp(68px, 9vw, 112px); }
+    .deliverable h3 { margin-bottom: 8px; font-size: clamp(21px, 2.3vw, 30px); line-height: 1.05; }
+    .deliverable p { max-width: 35ch; margin-bottom: 0; }
+    .format-line { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 20px; }
+    .format-line strong { font-family: "Archivo Black", Impact, sans-serif; font-size: clamp(25px, 4vw, 52px); text-transform: uppercase; }
+
+    .story-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .story-card {
+      min-height: 295px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 2px solid var(--ink);
+      border-radius: var(--radius);
+      background: var(--paper);
+    }
+
+    .story-card:nth-child(2) { background: var(--acid); }
+    .story-card:nth-child(4) { background: var(--orange); }
+    .story-card:nth-child(5) { background: var(--blue); color: #fff; }
+    .story-card h3 { margin: 28px 0 8px; font-size: 25px; line-height: 1; }
+    .story-card p { margin-bottom: 0; font-size: 14px; line-height: 1.35; }
+    .source-tag { width: fit-content; padding: 6px 8px; border: 1.5px solid currentColor; border-radius: 999px; }
+    .story-arrow { font: 32px/1 Georgia, serif; }
+
+    .checklist-layout { display: grid; grid-template-columns: minmax(220px, 0.7fr) minmax(0, 2fr); gap: 24px; align-items: start; }
+    .side-note {
+      position: sticky;
+      top: 98px;
+      padding: 24px;
+      border: 2px solid var(--ink);
+      border-radius: var(--radius);
+      background: var(--acid);
+    }
+
+    .side-note h3 { font-size: 26px; line-height: 1; }
+    .side-note p:last-child { margin-bottom: 0; }
+    .progress-track { height: 10px; margin: 20px 0 8px; border: 1.5px solid var(--ink); border-radius: 999px; overflow: hidden; background: var(--paper); }
+    .progress-fill { width: 0; height: 100%; background: var(--blue); transition: width 180ms ease; }
+    .progress-actions { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .accordion-stack { display: grid; gap: 12px; }
+    details {
+      border: 2px solid var(--ink);
+      border-radius: var(--radius);
+      background: var(--paper);
+      overflow: clip;
+    }
+
+    details[open] { box-shadow: 7px 7px 0 var(--ink); }
+    summary {
+      min-height: 82px;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      list-style: none;
+      cursor: pointer;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+    summary h3 { margin: 0; font-size: clamp(20px, 2.5vw, 30px); line-height: 1.05; }
+    .summary-left { display: flex; align-items: center; gap: 14px; }
+    .category-dot { width: 16px; height: 16px; flex: 0 0 auto; border: 2px solid var(--ink); border-radius: 50%; background: var(--accent, var(--acid)); }
+    .open-icon { flex: 0 0 auto; font: 28px/1 "Martian Mono", monospace; transition: transform 180ms ease; }
+    details[open] .open-icon { transform: rotate(45deg); }
+    .checklist { padding: 2px 22px 24px; border-top: 1.5px solid var(--ink); }
+    .check-row {
+      min-height: 51px;
+      display: grid;
+      grid-template-columns: 26px 1fr;
+      gap: 12px;
+      align-items: center;
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
+    }
+
+    .check-row:last-child { border-bottom: 0; }
+    .check-row input {
+      appearance: none;
+      width: 21px;
+      height: 21px;
+      margin: 0;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--ink);
+      border-radius: 3px;
+      background: var(--paper);
+      cursor: pointer;
+    }
+
+    .check-row input::before { content: ""; width: 11px; height: 6px; border-left: 2px solid var(--ink); border-bottom: 2px solid var(--ink); transform: rotate(-45deg) scale(0); transition: transform 100ms ease; }
+    .check-row input:checked { background: var(--acid); }
+    .check-row input:checked::before { transform: rotate(-45deg) scale(1); }
+    .check-row input:focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
+    .check-row:has(input:checked) span { opacity: 0.5; text-decoration: line-through; }
+
+    .needs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .need-card { padding: clamp(22px, 3vw, 34px); border: 2px solid var(--ink); border-radius: var(--radius); background: var(--paper); }
+    .need-card.daytripper { background: var(--acid); }
+    .need-card h3 { margin-bottom: 22px; font-size: clamp(25px, 3vw, 40px); line-height: 1; }
+    .plain-list { margin: 0; padding: 0; list-style: none; counter-reset: needs; }
+    .plain-list li { position: relative; padding: 13px 0 13px 34px; border-top: 1px solid currentColor; }
+    .plain-list li::before { content: "✓"; position: absolute; left: 0; font-weight: 900; }
+
+    .shoot-plan { margin-top: 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .plan-card { min-height: 240px; padding: 26px; border: 2px solid var(--ink); border-radius: var(--radius); background: var(--paper); }
+    .plan-card:nth-child(1) { background: var(--acid); }
+    .plan-card:nth-child(2) { background: var(--orange); }
+    .plan-card:nth-child(3) { background: var(--blue); color: #fff; }
+    .plan-card h3 { margin: 14px 0 12px; font-size: clamp(23px, 2.6vw, 34px); line-height: 1; }
+    .plan-card p:last-child { margin-bottom: 0; }
+
+    footer { padding: 30px 0 calc(30px + env(safe-area-inset-bottom)); background: var(--ink); color: var(--paper); }
+    .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; align-items: center; }
+    .footer-logo { width: clamp(210px, 30vw, 330px); height: auto; display: block; }
+
+    @media (max-width: 920px) {
+      .header-inner { align-items: flex-start; flex-direction: column; }
+      nav { width: 100%; padding-bottom: 1px; }
+      .hero { min-height: 650px; }
+      .story-grid { grid-template-columns: repeat(2, 1fr); }
+      .story-card:last-child { grid-column: 1 / -1; min-height: 220px; }
+      .checklist-layout { grid-template-columns: 1fr; }
+      .side-note { position: static; }
+      .shoot-plan { grid-template-columns: 1fr; }
+      .plan-card { min-height: 0; }
+    }
+
+    @media (max-width: 700px) {
+      :root { --pad: 18px; --radius: 14px; }
+      html { scroll-padding-top: 132px; }
+      .site-header { position: relative; }
+      .header-inner { min-height: auto; padding-block: 12px; }
+      nav a { min-height: 40px; padding-inline: 12px; }
+      .hero { min-height: 620px; padding-top: 50px; background: radial-gradient(circle at 88% 8%, var(--acid) 0 7%, transparent 7.3%); }
+      h1 { font-size: clamp(52px, 20vw, 90px); overflow-wrap: anywhere; }
+      .hero-copy { font-size: 19px; }
+      .section-head { grid-template-columns: 1fr; gap: 10px; }
+      h2 { font-size: clamp(42px, 14vw, 72px); overflow-wrap: anywhere; }
+      .deliverable { grid-column: span 12 !important; min-height: auto; }
+      .big-number { font-size: 74px; }
+      .story-grid { grid-template-columns: 1fr; }
+      .story-card, .story-card:last-child { grid-column: auto; min-height: 230px; }
+      .needs-grid { grid-template-columns: 1fr; }
+      summary { min-height: 74px; padding: 16px; }
+      summary h3 { font-size: 20px; }
+      .checklist { padding-inline: 16px; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (max-width: 360px) {
+      .brand-name { font-size: 12px; }
+      h1 { font-size: 48px; }
+      h2 { font-size: 40px; }
+      .summary-left { gap: 9px; }
+      .category-dot { width: 13px; height: 13px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+    }
+
+    @media print {
+      .site-header, .progress-actions, footer, .sync-pill { display: none !important; }
+      body { background: #fff; font-size: 11pt; }
+      .hero { min-height: 0; padding-block: 30px; }
+      .section { padding-block: 34px; break-inside: avoid; }
+      details, details[open] { box-shadow: none; break-inside: avoid; }
+      details > *:not(summary) { display: block !important; }
+      .side-note { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="#top" aria-label="Back to top">
+        <img class="brand-mark" src="assets/va-profile-lime.png" alt="Vessel Archive">
+        <span class="brand-name">Krowne × Day Tripper</span>
+      </a>
+      <nav aria-label="Page sections">
+        <a href="#deliverables">Deliverables</a>
+        <a href="#documentary">Documentary</a>
+        <a href="#equipment">Equipment</a>
+        <a href="#prep">Prep</a>
+        <span class="sync-pill" data-sync-status data-state="local" role="status" aria-live="polite"><span class="sync-dot"></span><span data-sync-copy>Local save</span></span>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap">
+        <div class="eyebrow">Production guide · Sacramento, CA</div>
+        <h1>The <em>simple</em><br>shoot plan.</h1>
+        <p class="hero-copy">One shared place for what we’re making, what needs to be shot, and what Day Tripper and Krowne need to have ready.</p>
+        <div class="hero-note">
+          <span class="badge acid">Wednesday, August 26 · 10:00 AM</span>
+          <span class="badge">1–2 shoot days</span>
+          <span class="badge">Natural service</span>
+          <span class="badge">Horizontal + vertical</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="deliverables">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-number">01 / What we’re making</div>
+          <div>
+            <h2>Deliverables,<br><span class="serif">at a glance.</span></h2>
+            <p class="section-intro">The documentary is the main piece. The chapter cuts and equipment videos come from the same footage.</p>
+          </div>
+        </div>
+
+        <div class="deliverable-grid">
+          <article class="deliverable">
+            <div class="big-number">01</div>
+            <h3>Mini documentary</h3>
+            <p>A 3–4 minute film about the bar going from an empty room to a finished space in service.</p>
+          </article>
+          <article class="deliverable">
+            <div class="big-number">05</div>
+            <h3>Chapter cuts</h3>
+            <p>Short social edits: Dream, Design, Build, Install, and Serve.</p>
+          </article>
+          <article class="deliverable">
+            <div class="big-number">05</div>
+            <h3>Equipment videos</h3>
+            <p>One short video for each featured piece of Krowne equipment.</p>
+          </article>
+          <article class="deliverable">
+            <div class="format-line">
+              <strong>Two formats</strong>
+              <span class="label">Horizontal 16:9 + vertical 9:16</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="documentary">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-number">02 / Documentary</div>
+          <div>
+            <h2>Five <span class="serif">clear</span><br>chapters.</h2>
+            <p class="section-intro">The first four chapters mostly use footage Krowne already has. Our main job at Day Tripper is the finished bar and live service.</p>
+          </div>
+        </div>
+
+        <div class="story-grid">
+          <article class="story-card">
+            <div><span class="source-tag">Krowne footage</span><h3>01. Dream</h3><p>The empty room and the original idea for the space.</p></div>
+            <span class="story-arrow">→</span>
+          </article>
+          <article class="story-card">
+            <div><span class="source-tag">Krowne footage</span><h3>02. Design</h3><p>BarFlex planning, layout, and the thinking behind the station.</p></div>
+            <span class="story-arrow">→</span>
+          </article>
+          <article class="story-card">
+            <div><span class="source-tag">Krowne footage</span><h3>03. Build</h3><p>Factory footage, fabrication, welding, and stainless details.</p></div>
+            <span class="story-arrow">→</span>
+          </article>
+          <article class="story-card">
+            <div><span class="source-tag">Krowne footage</span><h3>04. Install</h3><p>The equipment coming into the room and the bar taking shape.</p></div>
+            <span class="story-arrow">→</span>
+          </article>
+          <article class="story-card">
+            <div><span class="source-tag">Shoot at Day Tripper</span><h3>05. Serve</h3><p>The finished station working during a real night of service.</p></div>
+            <span class="story-arrow">●</span>
+          </article>
+        </div>
+
+        <div class="checklist-layout" style="margin-top: clamp(40px, 6vw, 72px);">
+          <aside class="side-note">
+            <span class="label">Documentary shot list</span>
+            <h3>What we need from Day Tripper</h3>
+            <p>These shots tell the “Serve” chapter and give us the ending of the documentary.</p>
+            <div class="progress-track" aria-hidden="true"><div class="progress-fill" data-progress-fill></div></div>
+            <div class="progress-text" data-progress-text>0 shots checked</div>
+            <div class="progress-actions">
+              <button class="utility-button" type="button" data-open-all>Open all</button>
+              <button class="utility-button" type="button" data-reset>Reset</button>
+              <button class="utility-button" type="button" onclick="window.print()">Print</button>
+            </div>
+          </aside>
+
+          <div class="accordion-stack">
+            <details open style="--accent: var(--acid);">
+              <summary><span class="summary-left"><span class="category-dot"></span><h3>The space</h3></span><span class="open-icon">+</span></summary>
+              <div class="checklist">
+                <label class="check-row"><input type="checkbox"><span>Exterior and Day Tripper sign</span></label>
+                <label class="check-row"><input type="checkbox"><span>Walking into the room</span></label>
+                <label class="check-row"><input type="checkbox"><span>Wide view of the full bar</span></label>
+                <label class="check-row"><input type="checkbox"><span>Fountain, bougainvillea, arches, and spirits wall</span></label>
+                <label class="check-row"><input type="checkbox"><span>The Krowne station inside the finished bar</span></label>
+                <label class="check-row"><input type="checkbox"><span>Clean room details before service starts</span></label>
+              </div>
+            </details>
+
+            <details open style="--accent: var(--orange);">
+              <summary><span class="summary-left"><span class="category-dot"></span><h3>The bartender at work</h3></span><span class="open-icon">+</span></summary>
+              <div class="checklist">
+                <label class="check-row"><input type="checkbox"><span>One full cocktail made from start to finish</span></label>
+                <label class="check-row"><input type="checkbox"><span>The full cocktail build covered wide, medium, and tight</span></label>
+                <label class="check-row"><input type="checkbox"><span>Hands grabbing ice, bottles, glassware, tools, and garnishes</span></label>
+                <label class="check-row"><input type="checkbox"><span>Bartender moving through the full station</span></label>
+                <label class="check-row"><input type="checkbox"><span>Finished drinks leaving the bar</span></label>
+                <label class="check-row"><input type="checkbox"><span>Clean-up and reset between orders</span></label>
+              </div>
+            </details>
+
+            <details style="--accent: var(--blue);">
+              <summary><span class="summary-left"><span class="category-dot"></span><h3>Natural service</h3></span><span class="open-icon">+</span></summary>
+              <div class="checklist">
+                <label class="check-row"><input type="checkbox"><span>The bar filling up naturally</span></label>
+                <label class="check-row"><input type="checkbox"><span>Guests at the bar from behind or from the side</span></label>
+                <label class="check-row"><input type="checkbox"><span>Guests receiving and enjoying cocktails</span></label>
+                <label class="check-row"><input type="checkbox"><span>Drink handoffs, cheers, and real reactions</span></label>
+                <label class="check-row"><input type="checkbox"><span>Bartender moving at normal service speed</span></label>
+                <label class="check-row"><input type="checkbox"><span>Wide view of the room at peak energy</span></label>
+              </div>
+            </details>
+
+            <details style="--accent: var(--acid);">
+              <summary><span class="summary-left"><span class="category-dot"></span><h3>Sound and extra details</h3></span><span class="open-icon">+</span></summary>
+              <div class="checklist">
+                <label class="check-row"><input type="checkbox"><span>Empty room tone before opening</span></label>
+                <label class="check-row"><input type="checkbox"><span>Active room tone during service</span></label>
+                <label class="check-row"><input type="checkbox"><span>Ice drop, shaker, glass set-down, rinser, and drawers</span></label>
+                <label class="check-row"><input type="checkbox"><span>Stainless reflections and small mechanical details</span></label>
+                <label class="check-row"><input type="checkbox"><span>A few clean transitions between the room and the equipment</span></label>
+              </div>
+            </details>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="equipment">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-number">03 / Equipment spotlights</div>
+          <div>
+            <h2>One piece.<br>One <span class="serif">clear</span> list.</h2>
+            <p class="section-intro">Each spotlight needs three things: what it looks like, how it works, and how the bartender actually uses it.</p>
+          </div>
+        </div>
+
+        <div class="accordion-stack">
+          <details open style="--accent: var(--acid);">
+            <summary><span class="summary-left"><span class="category-dot"></span><h3>01. Glass rinser</h3></span><span class="open-icon">+</span></summary>
+            <div class="checklist">
+              <label class="check-row"><input type="checkbox"><span>Clean beauty shot of the rinser</span></label>
+              <label class="check-row"><input type="checkbox"><span>Rinser shown inside the full station</span></label>
+              <label class="check-row"><input type="checkbox"><span>Jigger pressing the rinser</span></label>
+              <label class="check-row"><input type="checkbox"><span>Shaker tin pressing the rinser</span></label>
+              <label class="check-row"><input type="checkbox"><span>Slow-motion water spray</span></label>
+              <label class="check-row"><input type="checkbox"><span>Rinse head removed and cleaned</span></label>
+              <label class="check-row"><input type="checkbox"><span>Under-counter plumbing and stainless details</span></label>
+            </div>
+          </details>
+
+          <details style="--accent: var(--orange);">
+            <summary><span class="summary-left"><span class="category-dot"></span><h3>02. Large-format ice freezer</h3></span><span class="open-icon">+</span></summary>
+            <div class="checklist">
+              <label class="check-row"><input type="checkbox"><span>Freezer shown inside the full station</span></label>
+              <label class="check-row"><input type="checkbox"><span>Lid opening and large cubes revealed</span></label>
+              <label class="check-row"><input type="checkbox"><span>Divider between the different ice types</span></label>
+              <label class="check-row"><input type="checkbox"><span>Bartender grabbing a cube during a drink build</span></label>
+              <label class="check-row"><input type="checkbox"><span>Large cube dropping into the cocktail</span></label>
+              <label class="check-row"><input type="checkbox"><span>Lid closing cleanly</span></label>
+            </div>
+          </details>
+
+          <details style="--accent: var(--blue);">
+            <summary><span class="summary-left"><span class="category-dot"></span><h3>03. Drawer refrigeration</h3></span><span class="open-icon">+</span></summary>
+            <div class="checklist">
+              <label class="check-row"><input type="checkbox"><span>Drawers shown inside the full station</span></label>
+              <label class="check-row"><input type="checkbox"><span>Drawers opening and closing</span></label>
+              <label class="check-row"><input type="checkbox"><span>Bottles, juices, syrups, garnishes, and backup product inside</span></label>
+              <label class="check-row"><input type="checkbox"><span>Bartender reaching into a drawer during a drink build</span></label>
+              <label class="check-row"><input type="checkbox"><span>Wide shot showing how close the drawers are to the bartender</span></label>
+            </div>
+          </details>
+
+          <details style="--accent: var(--acid);">
+            <summary><span class="summary-left"><span class="category-dot"></span><h3>04. Glass rack</h3></span><span class="open-icon">+</span></summary>
+            <div class="checklist">
+              <label class="check-row"><input type="checkbox"><span>Full rack loaded with glassware</span></label>
+              <label class="check-row"><input type="checkbox"><span>Glassware being loaded into the rack</span></label>
+              <label class="check-row"><input type="checkbox"><span>Bartender pulling glasses during service</span></label>
+              <label class="check-row"><input type="checkbox"><span>Welds, edges, and stainless details</span></label>
+              <label class="check-row"><input type="checkbox"><span>Glass rack shown inside the full workflow</span></label>
+            </div>
+          </details>
+
+          <details style="--accent: var(--orange);">
+            <summary><span class="summary-left"><span class="category-dot"></span><h3>05. Complete bartender workstation</h3></span><span class="open-icon">+</span></summary>
+            <div class="checklist">
+              <label class="check-row"><input type="checkbox"><span>Clean wide shot of the complete station</span></label>
+              <label class="check-row"><input type="checkbox"><span>Ice well, bottle wells, juice rails, and crushed ice</span></label>
+              <label class="check-row"><input type="checkbox"><span>Drawers, rinser, freezer, and glass rack in one view</span></label>
+              <label class="check-row"><input type="checkbox"><span>One uninterrupted cocktail build using the full station</span></label>
+              <label class="check-row"><input type="checkbox"><span>The same workflow covered wide, medium, and tight</span></label>
+              <label class="check-row"><input type="checkbox"><span>Quick movement from one part of the station to the next</span></label>
+              <label class="check-row"><input type="checkbox"><span>Finished cocktail leaving the station</span></label>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="prep">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="section-number">04 / Before we shoot</div>
+          <div>
+            <h2>What we need<br><span class="serif">ready.</span></h2>
+            <p class="section-intro">Nothing complicated. This is just the short list that keeps the shoot moving.</p>
+          </div>
+        </div>
+
+        <div class="needs-grid">
+          <article class="need-card daytripper">
+            <span class="label">From Day Tripper</span>
+            <h3>The bar, ready to work</h3>
+            <ul class="plain-list">
+              <li>Access beginning Wednesday, August 26 at 10:00 AM</li>
+              <li>A second shoot day available if we need it after day one</li>
+              <li>One bartender who knows the station well</li>
+              <li>The station clean, stocked, and fully working</li>
+              <li>Large-format ice, glassware, garnishes, juices, syrups, and backup product</li>
+              <li>Access under and behind the equipment for detail shots</li>
+              <li>Permission to capture normal service and any areas we should avoid</li>
+              <li>One person available for quick questions and final shot checks</li>
+            </ul>
+          </article>
+
+          <article class="need-card">
+            <span class="label">From Krowne</span>
+            <h3>The footage and facts</h3>
+            <ul class="plain-list">
+              <li>Empty-room footage</li>
+              <li>BarFlex planning footage or screen recordings</li>
+              <li>Factory and fabrication footage</li>
+              <li>Installation footage</li>
+              <li>Exact product names and model numbers</li>
+              <li>Approved product details or talking points</li>
+              <li>Logos and current brand files</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="shoot-plan">
+          <article class="plan-card">
+            <span class="label">Start time</span>
+            <h3>Wednesday, August 26 · 10:00 AM</h3>
+            <p>Everyone arrives ready to begin. We will shoot the controlled work first and continue into normal service.</p>
+          </article>
+          <article class="plan-card">
+            <span class="label">Day one</span>
+            <h3>Get as much as we can</h3>
+            <p>The room, all five equipment pieces, bartender workflow, clean sound, and the bar during real service.</p>
+          </article>
+          <article class="plan-card">
+            <span class="label">Day two</span>
+            <h3>Only if we need it</h3>
+            <p>We will decide after day one. Day two is for anything unfinished or anything worth capturing again.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap footer-inner">
+      <img class="footer-logo" src="assets/vessel-archive-lime.svg" alt="Vessel Archive">
+      <div class="footer-line">Krowne × Day Tripper · Production guide</div>
+    </div>
+  </footer>
+
+  <script src="assets/supabase.js"></script>
+  <script>
+    (() => {
+      const SUPABASE_URL = 'https://slsujfyqvmpkiwnuxhjf.supabase.co';
+      const SUPABASE_KEY = 'sb_publishable_ynjOy6nudUYHgnHAS-MFDQ_xoK0zeri';
+      const PROJECT_ID = 'daytripper-krowne-2026';
+      const boxes = [...document.querySelectorAll('input[type="checkbox"]')];
+      const fill = document.querySelector('[data-progress-fill]');
+      const text = document.querySelector('[data-progress-text]');
+      const syncStatus = document.querySelector('[data-sync-status]');
+      const syncCopy = document.querySelector('[data-sync-copy]');
+      const storageKey = 'daytripper-production-guide-v1';
+      let client = null;
+      let syncStarted = false;
+
+      boxes.forEach((box, index) => {
+        box.dataset.shotId = 'shot-' + String(index + 1).padStart(3, '0');
+      });
+
+      function setSyncStatus(state, copy) {
+        if (syncStatus) syncStatus.dataset.state = state;
+        if (syncCopy) syncCopy.textContent = copy;
+      }
+
+      function updateProgress() {
+        const checked = boxes.filter((box) => box.checked).length;
+        const percent = boxes.length ? Math.round((checked / boxes.length) * 100) : 0;
+        if (fill) fill.style.width = percent + '%';
+        if (text) text.textContent = checked + ' of ' + boxes.length + ' shots checked';
+        try { localStorage.setItem(storageKey, JSON.stringify(boxes.map((box) => box.checked))); } catch (_) {}
+      }
+
+      try {
+        const saved = JSON.parse(localStorage.getItem(storageKey) || '[]');
+        boxes.forEach((box, index) => { box.checked = Boolean(saved[index]); });
+      } catch (_) {}
+
+      boxes.forEach((box) => box.addEventListener('change', updateProgress));
+      updateProgress();
+
+      function rowFor(box) {
+        return {
+          project_id: PROJECT_ID,
+          shot_id: box.dataset.shotId,
+          checked: box.checked,
+          updated_at: new Date().toISOString()
+        };
+      }
+
+      async function saveBox(box) {
+        if (!client) return;
+        setSyncStatus('syncing', 'Saving…');
+        const { error } = await client
+          .from('shot_checks')
+          .upsert(rowFor(box), { onConflict: 'project_id,shot_id' });
+
+        if (error) {
+          console.warn('Checklist sync is using the local backup.', error.message);
+          setSyncStatus('error', 'Local backup');
+          return;
+        }
+
+        setSyncStatus('live', 'Live sync');
+      }
+
+      boxes.forEach((box) => {
+        box.addEventListener('change', () => saveBox(box));
+      });
+
+      async function startSync() {
+        if (syncStarted || !window.supabase?.createClient) {
+          if (!window.supabase?.createClient) setSyncStatus('error', 'Local backup');
+          return;
+        }
+
+        syncStarted = true;
+        setSyncStatus('syncing', 'Connecting…');
+        client = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        const { data, error } = await client
+          .from('shot_checks')
+          .select('shot_id,checked')
+          .eq('project_id', PROJECT_ID);
+
+        if (error) {
+          console.warn('Checklist table is not ready yet.', error.message);
+          client = null;
+          syncStarted = false;
+          setSyncStatus('error', 'Local backup');
+          return;
+        }
+
+        if (data.length === 0) {
+          const { error: seedError } = await client
+            .from('shot_checks')
+            .upsert(boxes.map(rowFor), { onConflict: 'project_id,shot_id' });
+
+          if (seedError) {
+            console.warn('Checklist could not start live sync.', seedError.message);
+            setSyncStatus('error', 'Local backup');
+            return;
+          }
+        } else {
+          const remote = new Map(data.map((row) => [row.shot_id, row.checked]));
+          boxes.forEach((box) => { box.checked = Boolean(remote.get(box.dataset.shotId)); });
+          updateProgress();
+        }
+
+        client
+          .channel('daytripper-shot-checks')
+          .on(
+            'postgres_changes',
+            {
+              event: '*',
+              schema: 'public',
+              table: 'shot_checks',
+              filter: 'project_id=eq.' + PROJECT_ID
+            },
+            (payload) => {
+              const row = payload.new;
+              if (!row?.shot_id) return;
+              const box = boxes.find((item) => item.dataset.shotId === row.shot_id);
+              if (!box) return;
+              box.checked = Boolean(row.checked);
+              updateProgress();
+              setSyncStatus('live', 'Live sync');
+            }
+          )
+          .subscribe((state) => {
+            if (state === 'SUBSCRIBED') setSyncStatus('live', 'Live sync');
+            if (state === 'CHANNEL_ERROR' || state === 'TIMED_OUT') setSyncStatus('error', 'Local backup');
+          });
+      }
+
+      startSync();
+      window.addEventListener('online', startSync);
+
+      document.querySelector('[data-open-all]')?.addEventListener('click', (event) => {
+        const details = [...document.querySelectorAll('details')];
+        const shouldOpen = details.some((item) => !item.open);
+        details.forEach((item) => { item.open = shouldOpen; });
+        event.currentTarget.textContent = shouldOpen ? 'Close all' : 'Open all';
+      });
+
+      document.querySelector('[data-reset]')?.addEventListener('click', async () => {
+        if (!window.confirm('Reset every shot for everyone?')) return;
+        boxes.forEach((box) => { box.checked = false; });
+        updateProgress();
+        if (!client) return;
+        setSyncStatus('syncing', 'Saving…');
+        const { error } = await client
+          .from('shot_checks')
+          .upsert(boxes.map(rowFor), { onConflict: 'project_id,shot_id' });
+        setSyncStatus(error ? 'error' : 'live', error ? 'Local backup' : 'Live sync');
+      });
+    })();
+  </script>
+</body>
+</html>
